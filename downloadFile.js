@@ -21,7 +21,7 @@
 
 <script>
 	import IndexApi from "@/elcker/api/article/index.js";
-	import pageLoading from "@/common/components/loading/pageLoading.vue";
+	import pageLoading from "./components/loading/pageLoading.vue";
 
 	const file_types = [{
 			suffix: [
@@ -220,7 +220,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "./fileIcon/index.css";
+	@import "./static/fileIcon/index.css";
 
 	.content {
 		padding: 20px;

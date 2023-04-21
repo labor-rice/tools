@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import pageLoading from "@/common/components/loading/pageLoading.vue";
+import pageLoading from "./components/loading/pageLoading.vue";
 import { getStore, setStore } from "@/elcker/build/utils/storage";
 import RepairApi from "@/repair/api/repair/index.js";
 import globalConfig from "@/elcker/build/config/index.js";
