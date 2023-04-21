@@ -107,3 +107,8 @@ methods: {
     .catch(() => {})
   }
 }
+
+/* Api */
+getLocation(data) {
+  return uniHttp.get('https://api.map.baidu.com/reverse_geocoding/v3/?ak=' + data.key + '&output=json&coordtype=wgs84ll&location=' + data.location)
+}
