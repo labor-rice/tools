@@ -2,7 +2,8 @@
 	<view class="container">
 		<view class="content">
 			<view class="content-fileTitle" v-if="fileList.length">附件列表</view>
-			<uni-card class="item-fileCard" v-for="(item, index) in fileList" @click="download(item.fileUrl, item.fileName)" :key="index">
+			<uni-card class="item-fileCard" v-for="(item, index) in fileList" @click="download(item.fileUrl, item.fileName)"
+				:key="index">
 				<view :class="['vate', 'vate-' + fileType(item.fileName), 'file-icon']" aria-hidden="true">
 				</view>
 				<text class="file-name">{{ item.fileName }}</text>
@@ -117,7 +118,7 @@
 			// 终止下载
 			this.downLoad.task ? this.downLoad.task.abort() : '';
 		},
-		methods: {// 文章详情
+		methods: { // 文章详情
 			getDetail() {
 				const data = {
 					params: {
@@ -125,13 +126,13 @@
 					}
 				};
 				IndexApi.getDetail(data).then((res) => {
-					if (res.code == 200) {
-						this.detail = res.data;
-					}
-				})
-				.catch((err) => {
-					this.showPageLoading = false;
-				});
+						if (res.code == 200) {
+							this.detail = res.data;
+						}
+					})
+					.catch((err) => {
+						this.showPageLoading = false;
+					});
 			},
 			// 匹配附件类型
 			fileType(a) {
@@ -215,32 +216,31 @@
 				const ua = navigator.userAgent.toLowerCase();
 				return ua.match(/MicroMessenger/i) == "micromessenger" ? true : false;
 			},
-			// base64的图片保存到相册
-			saveImageToPhotosAlbum(){
-				let base64=this.qrcode.replace(/^data:image\/\w+;base64,/, "");//去掉data:image/png;base64,
-				let filePath=wx.env.USER_DATA_PATH + '/hym_pay_qrcode.png';
+			saveImageToPhotosAlbum() {
+				let base64 = this.qrcode.replace(/^data:image\/\w+;base64,/, ""); //去掉data:image/png;base64,
+				let filePath = wx.env.USER_DATA_PATH + '/hym_pay_qrcode.png';
 				uni.getFileSystemManager().writeFile({
-						filePath:filePath ,  //创建一个临时文件名
-						data: base64,    //写入的文本或二进制数据
-						encoding: 'base64',  //写入当前文件的字符编码
-						success: res => {
-								uni.saveImageToPhotosAlbum({
-										filePath: filePath,
-										success: function(res2) {
-												uni.showToast({
-														title: '保存成功，请从相册选择再分享',
-														icon:"none",
-														duration:5000
-												})
-										},
-										fail: function(err) {
-												// console.log(err.errMsg);
-										}
+					filePath: filePath, //创建一个临时文件名
+					data: base64, //写入的文本或二进制数据
+					encoding: 'base64', //写入当前文件的字符编码
+					success: res => {
+						uni.saveImageToPhotosAlbum({
+							filePath: filePath,
+							success: function(res2) {
+								uni.showToast({
+									title: '保存成功，请从相册选择再分享',
+									icon: "none",
+									duration: 5000
 								})
-						},
-						fail: err => {
-								//console.log(err)
-						}
+							},
+							fail: function(err) {
+								// console.log(err.errMsg);
+							}
+						})
+					},
+					fail: err => {
+						//console.log(err)
+					}
 				})
 			}
 		}
