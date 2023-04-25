@@ -214,6 +214,34 @@
 				// 判断是否H5微信环境，true为微信浏览器
 				const ua = navigator.userAgent.toLowerCase();
 				return ua.match(/MicroMessenger/i) == "micromessenger" ? true : false;
+			},
+			// base64的图片保存到相册
+			saveImageToPhotosAlbum(){
+				let base64=this.qrcode.replace(/^data:image\/\w+;base64,/, "");//去掉data:image/png;base64,
+				let filePath=wx.env.USER_DATA_PATH + '/hym_pay_qrcode.png';
+				uni.getFileSystemManager().writeFile({
+						filePath:filePath ,  //创建一个临时文件名
+						data: base64,    //写入的文本或二进制数据
+						encoding: 'base64',  //写入当前文件的字符编码
+						success: res => {
+								uni.saveImageToPhotosAlbum({
+										filePath: filePath,
+										success: function(res2) {
+												uni.showToast({
+														title: '保存成功，请从相册选择再分享',
+														icon:"none",
+														duration:5000
+												})
+										},
+										fail: function(err) {
+												// console.log(err.errMsg);
+										}
+								})
+						},
+						fail: err => {
+								//console.log(err)
+						}
+				})
 			}
 		}
 	};
